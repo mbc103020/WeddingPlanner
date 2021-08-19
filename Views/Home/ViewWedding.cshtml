@@ -1,0 +1,15 @@
+@model Wedding
+<h2>@Model.Wedder1 & @Model.Wedder2's Wedding</h2>
+<h3>Date: @Model.Date.ToString("d")</h3>
+<p>Address: @Model.Address</p>
+<br>
+<p>Guests:</p>
+<ul>
+    @{
+        foreach(var rsvp in Model.Responses)
+        {
+            <li>@rsvp.Guest.FirstName @rsvp.Guest.LastName</li>
+        }
+
+    }
+</ul>

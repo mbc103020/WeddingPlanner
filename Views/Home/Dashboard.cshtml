@@ -1,0 +1,51 @@
+@model List<Wedding>
+<h2>Welcome to the Wedding Planner</h2>
+<a asp-action="Logout">Logout</a>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Wedding</th>
+            <th>Date</th>
+            <th>Guest Count</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach(var wedding in Model)
+    {
+        <tr>
+            <td><a asp-controller="Home" 
+                asp-action="ViewWedding" 
+                asp-route-weddingId="@wedding.WeddingId">@wedding.Wedder1 @wedding.Wedder2</a></td>
+            <td>@wedding.Date</td>
+            <td>@wedding.Responses.Count()</td>
+            @{
+                 var rsvp = ((IEnumerable<dynamic>)wedding.Responses).Any(r => r.UserId == @ViewBag.User.UserId);
+
+                if(wedding.UserId == ViewBag.User.UserId)
+                {
+                    <td><a asp-controller="Home" 
+                        asp-action="Remove" asp-route-weddingId="@wedding.WeddingId">Delete</a></td>
+
+                }
+                else if(rsvp)
+                {
+                    <td><a asp-controller="Home" 
+                        asp-action="RSVP" 
+                        asp-route-weddingId="@wedding.WeddingId" 
+                        asp-route-status="remove">Un-RSVP</a></td>
+                }
+                else
+                {
+                     <td><a asp-controller="Home" 
+                        asp-action="RSVP" 
+                        asp-route-weddingId="@wedding.WeddingId" 
+                        asp-route-status="add">RSVP</a></td>
+                }
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+<a asp-action="PlanWedding">New Wedding</a>
+
