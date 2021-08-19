@@ -54,7 +54,7 @@ namespace WeddingPlanner.Controllers
 
                 HttpContext.Session.SetInt32("userId", newUser.UserId); 
 
-                return RedirectToAction("Dashboard"); 
+                return RedirectToAction("Dashboard", new { userId = newUser.UserId }); 
             }
             return View("Index"); 
 
@@ -87,7 +87,7 @@ namespace WeddingPlanner.Controllers
         }
 
         [HttpGet("/logout")]
-        public IActionResult Logout()
+        public IActionResult Logout() 
         {
             
             TempData["success_message"] = "Thank you for visiting!";
